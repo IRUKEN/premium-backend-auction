@@ -5,7 +5,7 @@ Welcome to the backend for a **premium auction platform**, built with a focus on
 ## 🛠️ Recent Updates
 ### Why the Changes?
 Due to security vulnerabilities detected in some of the previously used libraries, such as **Keycloak** and **Lettuce (Redis)**, this project has opted to:
-- Replace **Keycloak** with **Authentik**, a lightweight and open-source identity provider.
+- Replace **Keycloak** with **ZITADEL**, a modern and open-source identity and access management (IAM) platform.
 - Replace **Lettuce** with **Redisson**, a more robust and secure library for interacting with Redis.
 
 These updates ensure a **more secure and stable foundation** for handling authentication, authorization, and caching in this application.
@@ -16,7 +16,7 @@ These updates ensure a **more secure and stable foundation** for handling authen
 
 - **Java + Spring Boot**: Framework for building scalable backend services.
 - **PostgreSQL**: Relational database for transactional data.
-- **Authentik**: Lightweight and secure identity provider for OAuth2 and OpenID Connect.
+- **ZITADEL**: Modern identity and access management for OAuth2 and OpenID Connect.
 - **Redis + Redisson**: In-memory database for caching and real-time notifications.
 - **Spring Security**: Fine-grained access control with JWT authentication.
 - **Docker**: Containerized deployment for all services.
@@ -35,7 +35,7 @@ These updates ensure a **more secure and stable foundation** for handling authen
 
 ### 🔐 Security
 - **JWT** for session management.
-- **Authentik** for centralized authentication and OAuth2 integration.
+- **ZITADEL** for centralized authentication and OAuth2 integration.
 - **HTTPS** for secure communication.
 - **Encrypted storage** for sensitive data (e.g., hashed passwords).
 
@@ -52,7 +52,7 @@ These updates ensure a **more secure and stable foundation** for handling authen
 
 ```plaintext
 src/
-├── config/           # Configurations for DB, Security, Redis, Authentik, etc.
+├── config/           # Configurations for DB, Security, Redis, ZITADEL, etc.
 ├── controller/       # REST controllers for handling HTTP requests.
 ├── model/            # Data models for Users, Auctions, Bids, etc.
 ├── repository/       # Repositories for PostgreSQL and Redis.
