@@ -1,5 +1,5 @@
 spring:
-  # Configuración de la base de datos (PostgreSQL)
+  # Database configuration (PostgreSQL)
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/padb}
     username: ${SPRING_DATASOURCE_USERNAME:padb}
@@ -12,12 +12,12 @@ spring:
       hibernate:
         dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
 
-  # Configuración de MongoDB
+  # MongoDB configuration
   data:
     mongodb:
       uri: mongodb://${MONGO_USERNAME:root}:${MONGO_PASSWORD:securepassword}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}/${MONGO_DATABASE:logsdb}
 
-  # Configuración de Redis
+  # Redis configuration
   redis:
     host: ${SPRING_REDIS_HOST:localhost}
     port: ${SPRING_REDIS_PORT:6379}
@@ -26,7 +26,7 @@ spring:
     timeout: ${SPRING_REDIS_TIMEOUT:2000ms}
 
   security:
-    # Configuración de seguridad general
+    # General security configuration
     oauth2:
       client:
         registration:
@@ -43,10 +43,10 @@ spring:
             jwk-set-uri: ${ZITADEL_JWK_URI:http://localhost:8080/oauth/v2/keys}
     # Expose public endpoints
     public-endpoints:
-      health: "/health" # Puedes configurar más endpoints públicos aquí en el futuro.
+      health: "/health" # You can configure more public endpoints here in the future.
 
 server:
-  # Configuración del servidor
+  # Server configuration
   port: ${SERVER_PORT:9099} # Default port is now 9099, but can be overridden with the `SERVER_PORT` environment variable.
   servlet:
     context-path: ${SERVER_SERVLET_CONTEXT_PATH:/api}
