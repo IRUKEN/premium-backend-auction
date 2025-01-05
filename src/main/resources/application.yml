@@ -1,0 +1,56 @@
+spring:
+  # Configuración de la base de datos (PostgreSQL)
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/padb}
+    username: ${SPRING_DATASOURCE_USERNAME:padb}
+    password: ${SPRING_DATASOURCE_PASSWORD:M30uuZBy60owRak}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update} # Use 'update', 'create', 'validate' cautiously in production.
+    properties:
+      hibernate:
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+
+  # Configuración de MongoDB
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_USERNAME:root}:${MONGO_PASSWORD:securepassword}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}/${MONGO_DATABASE:logsdb}
+
+  # Configuración de Redis
+  redis:
+    host: ${SPRING_REDIS_HOST:localhost}
+    port: ${SPRING_REDIS_PORT:6379}
+    password: ${SPRING_REDIS_PASSWORD:}
+    ssl: ${SPRING_REDIS_SSL:false}
+    timeout: ${SPRING_REDIS_TIMEOUT:2000ms}
+
+  security:
+    # Configuración de seguridad general
+    oauth2:
+      client:
+        registration:
+          zitadel:
+            client-id: ${ZITADEL_CLIENT_ID:300659513072025605}
+            client-secret: ${ZITADEL_CLIENT_SECRET:300659513072091141}
+            scope: openid,profile,email # No spaces, ensure proper comma separation
+        provider:
+          zitadel:
+            issuer-uri: ${ZITADEL_ISSUER_URI:http://localhost:8080}
+            authorization-uri: ${ZITADEL_AUTHORIZATION_URI:http://localhost:8080/oauth/v2/authorize}
+            token-uri: ${ZITADEL_TOKEN_URI:http://localhost:8080/oauth/v2/token}
+            user-info-uri: ${ZITADEL_USER_INFO_URI:http://localhost:8080/oidc/v1/userinfo}
+            jwk-set-uri: ${ZITADEL_JWK_URI:http://localhost:8080/oauth/v2/keys}
+    # Expose public endpoints
+    public-endpoints:
+      health: "/health" # Puedes configurar más endpoints públicos aquí en el futuro.
+
+server:
+  # Configuración del servidor
+  port: ${SERVER_PORT:9099} # Default port is now 9099, but can be overridden with the `SERVER_PORT` environment variable.
+  servlet:
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH:/api}
+
+logging:
+  level:
+    org.springframework.security: DEBUG

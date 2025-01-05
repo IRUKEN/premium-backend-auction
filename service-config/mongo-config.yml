@@ -1,0 +1,8 @@
+# Configuración de MongoDB
+mongo:
+  host: mongodb               # Nombre del contenedor MongoDB (corresponde al nombre del servicio en docker-compose)
+  port: 27017                 # Puerto estándar de MongoDB
+  database: logsdb            # Nombre de la base de datos a utilizar
+  username: root              # Usuario administrador de la base de datos
+  password: securepassword     # Contraseña del usuario administrador
+  authentication-database: admin # Base de datos para autenticación

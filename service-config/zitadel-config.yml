@@ -1,0 +1,14 @@
+zitadel:
+  setup:
+    admin_user: admin
+    admin_password: secureAdminPassword123  # Contraseña fuerte para administrador
+  database:
+    type: postgres
+    host: postgres                         # Nombre del contenedor o host de la base de datos
+    port: 5432                             # Puerto estándar de PostgreSQL
+    name: zitadel_db                       # Nombre de la base de datos
+    user: zitadel_user                     # Usuario de la base de datos para ZITADEL
+    password: zitadel_password             # Contraseña para el usuario de la base de datos
+  ports:
+    http: 8080                             # Puerto para el acceso HTTP
+    grpc: 8081                             # Puerto para el acceso gRPC

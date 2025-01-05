@@ -1,0 +1,29 @@
+# Configuración de conexión a PostgreSQL para la aplicación principal
+postgres:
+  host: postgres              # Nombre del contenedor de PostgreSQL
+  port: 5432                  # Puerto estándar de PostgreSQL
+  database: padb              # Base de datos para la aplicación principal
+  username: padb              # Usuario de la base de datos principal
+  password: M30uuZBy60owRak   # Contraseña segura para el usuario principal
+  driver: org.postgresql.Driver # Clase del controlador JDBC
+
+# Configuración avanzada de conexión para la aplicación principal
+connection:
+  pool:
+    max-active: 20            # Número máximo de conexiones activas
+    max-idle: 10              # Número máximo de conexiones inactivas en el pool
+    min-idle: 2               # Número mínimo de conexiones inactivas en el pool
+    max-wait: 5000ms          # Tiempo máximo para esperar una conexión antes de dar error
+  properties:
+    hibernate:
+      ddl-auto: update        # Actualizar el esquema automáticamente
+      dialect: org.hibernate.dialect.PostgreSQLDialect # Dialecto para PostgreSQL
+
+# Configuración de conexión a PostgreSQL para ZITADEL
+zitadel_postgres:
+  host: postgres              # Nombre del contenedor de PostgreSQL
+  port: 5432                  # Puerto estándar de PostgreSQL
+  database: zitadel_db        # Base de datos exclusiva para ZITADEL
+  username: zitadel_user      # Usuario de la base de datos de ZITADEL
+  password: zitadel_password  # Contraseña segura para el usuario de ZITADEL
+  driver: org.postgresql.Driver # Clase del controlador JDBC

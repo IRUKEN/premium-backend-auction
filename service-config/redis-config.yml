@@ -1,0 +1,20 @@
+# Configuración de conexión a Redis
+redis:
+  host: localhost           # Dirección del servidor Redis (cambia si usas Docker)
+  port: 6379                # Puerto estándar de Redis
+  password: null            # Contraseña (déjalo como null si no tienes configurada una)
+  timeout: 2000ms           # Tiempo máximo para esperar la conexión
+  ssl: false                # Deshabilitar SSL para entornos locales
+
+# Configuración avanzada
+connection:
+  pool:
+    max-active: 10          # Número máximo de conexiones activas en el pool
+    max-idle: 5             # Número máximo de conexiones inactivas en el pool
+    min-idle: 1             # Número mínimo de conexiones inactivas en el pool
+    max-wait: 3000ms        # Tiempo máximo para esperar una conexión disponible
+
+# Opciones específicas de Redis
+data:
+  eviction-policy: allkeys-lru  # Política de eliminación (LRU: Least Recently Used)
+  key-prefix: "auction:"        # Prefijo para las claves almacenadas en Redis

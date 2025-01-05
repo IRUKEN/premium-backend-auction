@@ -1,0 +1,92 @@
+version: "3.9"
+
+services:
+  # Servicio para PostgreSQL
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: admin_password
+      POSTGRES_DB: admin_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio para Redis
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio para MongoDB
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: securepassword
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'db.runCommand({ping: 1})' | mongo localhost:27017"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio para ZITADEL
+  zitadel:
+    image: ghcr.io/zitadel/zitadel:latest
+    container_name: zitadel
+    ports:
+      - "8080:8080" # HTTP port
+      - "8081:8081" # gRPC port
+    environment:
+      - ZITADEL_DATABASE_POSTGRES_HOST=postgres
+      - ZITADEL_DATABASE_POSTGRES_PORT=5432
+      - ZITADEL_DATABASE_POSTGRES_DATABASE=zitadel_db
+      - ZITADEL_DATABASE_POSTGRES_USER_USERNAME=zitadel_user
+      - ZITADEL_DATABASE_POSTGRES_USER_PASSWORD=zitadel_password
+      - ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME=admin_user
+      - ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD=admin_password
+      - ZITADEL_ADMIN_PASSWORD=Password1!  # Contraseña preconfigurada
+      - ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE=disable
+      - ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE=disable
+      - ZITADEL_EXTERNALSECURE=false
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - zitadel_data:/app/data
+    restart: always
+    command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:
+  mongodb_data:
+  zitadel_data:
