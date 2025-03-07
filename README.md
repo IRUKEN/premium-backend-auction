@@ -46,7 +46,7 @@ These updates ensure a **more secure and stable foundation** for handling authen
 - A detailed log of all bids and completed auctions.
 - Export data to formats like CSV or PDF.
 
----
+---test de uso de teclado es facil de usar jbsjfbbsfbjsjdbfsohfs ejbfbsjbfbsfkb>><;;;::::()(Y^``+`^^*^**^^¨Ç¨Ç¨""""´´¨
 
 ## 📂 Project Structure
 
